@@ -17,7 +17,7 @@ export const useRegister = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["session"] });
-            router.replace("/");
+            router.refresh()
         },
     })
 }

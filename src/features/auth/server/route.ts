@@ -4,7 +4,7 @@ import { loginSchema, registerSchema } from '@/features/schema'
 import { createAdminClient } from '@/lib/appwrite'
 import { ID } from 'node-appwrite'
 import { deleteCookie, setCookie } from 'hono/cookie'
-import { AUTH_COOKIE } from '@/features/contant'
+import { AUTH_COOKIE } from '@/features/constant'
 import { sessionMiddleware } from '@/lib/session-middleware'
 
 const loginMiddleware = zValidator("json", loginSchema)

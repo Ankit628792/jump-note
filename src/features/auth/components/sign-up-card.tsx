@@ -1,3 +1,4 @@
+"use client"
 import DottedSeparator from '@/components/dotted-separator'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -15,7 +16,7 @@ import { useRegister } from '../api/use-register'
 
 
 function SignUpCard() {
-    const { mutate } = useRegister();
+    const { mutate, isPending } = useRegister();
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver: zodResolver(registerSchema),
         defaultValues: {
@@ -26,7 +27,6 @@ function SignUpCard() {
     })
 
     const onSubmit = (values: z.infer<typeof registerSchema>) => {
-        console.log({ values })
         mutate({ json: values })
     }
 
@@ -92,7 +92,7 @@ function SignUpCard() {
                                 </FormItem>
                             )}
                         />
-                        <Button size={"lg"} className='w-full'>
+                        <Button disabled={isPending} size={"lg"} className='w-full'>
                             Register
                         </Button>
                     </form>

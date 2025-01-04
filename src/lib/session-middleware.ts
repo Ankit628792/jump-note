@@ -10,7 +10,7 @@ import {
 } from 'node-appwrite'
 import { getCookie } from 'hono/cookie'
 import { createMiddleware } from 'hono/factory'
-import { AUTH_COOKIE } from "@/features/contant"
+import { AUTH_COOKIE } from "@/features/constant"
 
 type AdditionalContext = {
     Variables: {
