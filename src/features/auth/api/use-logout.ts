@@ -16,7 +16,7 @@ export const useLogout = () => {
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["session"] });
-            router.refresh()
+            router.replace("/sign-in")
         },
     })
 }
