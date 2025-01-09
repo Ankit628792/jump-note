@@ -3,17 +3,32 @@ import { Hono } from "hono";
 import { createWorkSpaceSchema } from "../schema";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { MEMBER_ROLE } from "@/features/members/types";
+import { generateInviteCode } from "@/lib/utils";
 
 const createWorkSpaceMiddleware = zValidator("form", createWorkSpaceSchema)
 
 const app = new Hono()
     .get("/", sessionMiddleware, async (c) => {
         const databases = c.get("databases");
+        const user = c.get("user")
+        const members = await databases.listDocuments(
+            DATABASE_ID,
+            MEMBERS_ID,
+            [Query.equal("userId", user.$id)]
+        );
+
+        if (!members.total) {
+            return c.json({ data: { documents: [], total: 0 } })
+        }
+        const workspaceIds = members.documents.map(doc => doc.workspaceId)
         const workSpaces = await databases.listDocuments(
             DATABASE_ID,
             WORKSPACES_ID,
+            [
+                Query.orderDesc("$createdAt"),
+                Query.contains("$id", workspaceIds)]
         )
         return c.json({ data: workSpaces })
     })
@@ -47,7 +62,8 @@ const app = new Hono()
             {
                 name,
                 userId: user.$id,
-                imageUrl
+                imageUrl,
+                inviteCode: generateInviteCode(6)
             }
         )
 
