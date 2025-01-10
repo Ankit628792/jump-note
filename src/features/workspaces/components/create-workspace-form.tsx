@@ -15,6 +15,7 @@ import { Avatar } from '@radix-ui/react-avatar';
 import { AvatarFallback } from '@/components/ui/avatar';
 import { ImageIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 
 interface CreateWorkspaceFormProps {
@@ -121,7 +122,7 @@ function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
                         </div>
                         <DottedSeparator className='py-7' />
                         <div className='flex items-center justify-between'>
-                            <Button disabled={isPending} type='button' size={"lg"} variant={"secondary"} onClick={onCancel}>
+                            <Button disabled={isPending} type='button' size={"lg"} variant={"secondary"} onClick={onCancel} className={cn(!onCancel && "invisible")}>
                                 Cancel
                             </Button>
                             <Button disabled={isPending} type='submit' size={"lg"}>
