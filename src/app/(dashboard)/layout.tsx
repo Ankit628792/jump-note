@@ -1,5 +1,6 @@
 import Navbar from '@/components/navbar'
 import Sidebar from '@/components/sidebar'
+import CreateWorkspaceModal from '@/features/workspaces/components/create-workspace-modal'
 import React from 'react'
 
 function DashboardLayout({ children }: {
@@ -7,6 +8,7 @@ function DashboardLayout({ children }: {
 }) {
     return (
         <div className="w-full min-h-screen">
+            <CreateWorkspaceModal />
             <div className="flex w-full h-full">
                 <div className='fixed left-0 top-0 hidden lg:block lg:w-[264px] h-full overscroll-y-auto'>
                     <Sidebar />
