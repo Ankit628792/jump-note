@@ -1,20 +1,19 @@
 "use client"
-import { zodResolver } from '@hookform/resolvers/zod';
 import React, { ChangeEvent, useRef } from 'react'
-import { useForm } from 'react-hook-form';
-import { createWorkSpaceSchema } from '../schema';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { ImageIcon } from 'lucide-react';
 import { z } from 'zod';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import DottedSeparator from '@/components/dotted-separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useCreateWorkspace } from '../api/use-create-workspace';
-import Image from 'next/image';
-import { Avatar } from '@radix-ui/react-avatar';
-import { AvatarFallback } from '@/components/ui/avatar';
-import { ImageIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { createWorkSpaceSchema } from '../schema';
 import { cn } from '@/lib/utils';
 
 
