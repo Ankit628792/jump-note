@@ -1,9 +1,8 @@
-import { SettingsIcon } from 'lucide-react'
 import React from 'react'
+import Link from 'next/link'
 import { GoCheckCircle, GoCheckCircleFill, GoHome, GoHomeFill } from 'react-icons/go'
 import { IoSettingsOutline, IoSettings } from 'react-icons/io5'
 import { HiMiniUsers, HiOutlineUsers } from 'react-icons/hi2'
-import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 const routes = [

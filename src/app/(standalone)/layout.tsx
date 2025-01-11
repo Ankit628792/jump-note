@@ -1,8 +1,7 @@
-import UserButton from '@/features/auth/components/user-button'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
-
+import UserButton from '@/features/auth/components/user-button'
 
 function StandaloneLayout({ children }: {
     children: React.ReactNode,

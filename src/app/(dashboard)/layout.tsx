@@ -1,7 +1,7 @@
+import React from 'react'
+import CreateWorkspaceModal from '@/features/workspaces/components/create-workspace-modal'
 import Navbar from '@/components/navbar'
 import Sidebar from '@/components/sidebar'
-import CreateWorkspaceModal from '@/features/workspaces/components/create-workspace-modal'
-import React from 'react'
 
 function DashboardLayout({ children }: {
     children: React.ReactNode,

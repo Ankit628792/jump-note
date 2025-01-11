@@ -1,13 +1,12 @@
 "use client"
-import { useGetWorkSpaces } from '@/features/workspaces/api/use-get-workspaces'
 import React from 'react'
-import { RiAddCircleFill } from 'react-icons/ri'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import WorkspaceAvatar from '@/features/workspaces/components/workspace-avatar';
-import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { RiAddCircleFill } from 'react-icons/ri'
+import { useGetWorkSpaces } from '@/features/workspaces/api/use-get-workspaces'
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
+import WorkspaceAvatar from '@/features/workspaces/components/workspace-avatar';
 import { useCreateWorkspaceModal } from '@/features/workspaces/hooks/use-create-workspace-modal';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 
 function WorkspaceSwitcher() {
     const { data: workspaces, isLoading } = useGetWorkSpaces();

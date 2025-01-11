@@ -1,10 +1,10 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
-import { loginSchema, registerSchema } from '@/features/schema'
-import { createAdminClient } from '@/lib/appwrite'
 import { ID } from 'node-appwrite'
 import { deleteCookie, setCookie } from 'hono/cookie'
+import { loginSchema, registerSchema } from '@/features/schema'
 import { AUTH_COOKIE } from '@/features/constant'
+import { createAdminClient } from '@/lib/appwrite'
 import { sessionMiddleware } from '@/lib/session-middleware'
 
 const loginMiddleware = zValidator("json", loginSchema)

@@ -1,8 +1,8 @@
 "use client"
 import React from 'react'
+import { Loader, LogOut } from 'lucide-react'
 import { useSession } from '../api/use-session'
 import { useLogout } from '../api/use-logout'
-import { Loader, LogOut } from 'lucide-react'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { DropdownMenu, DropdownMenuItem, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import DottedSeparator from '@/components/dotted-separator'

@@ -1,9 +1,9 @@
 "use client"
-import { Button } from '@/components/ui/button'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import { Button } from '@/components/ui/button'
 
 function layout({ children }: {
     children: React.ReactNode,

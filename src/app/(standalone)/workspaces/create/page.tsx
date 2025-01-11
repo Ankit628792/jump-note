@@ -1,7 +1,7 @@
+import React from 'react'
+import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/features/auth/actions';
 import CreateWorkspaceForm from '@/features/workspaces/components/create-workspace-form'
-import { redirect } from 'next/navigation';
-import React from 'react'
 
 async function WorkspaceCreatePage() {
     const user = await getCurrentUser()
