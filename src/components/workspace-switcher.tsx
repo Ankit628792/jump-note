@@ -12,13 +12,14 @@ function WorkspaceSwitcher() {
     const { data: workspaces, isLoading } = useGetWorkSpaces();
     const router = useRouter()
     const workspaceId = useWorkspaceId();
-    if (isLoading) {
-        return null;
-    }
+
 
     const { open } = useCreateWorkspaceModal();
     const onSelect = (id: string) => {
         router.push(`/workspaces/${id}`)
+    }
+    if (isLoading) {
+        return null;
     }
     return (
         <div className='flex flex-col gap-y-2'>
