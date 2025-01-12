@@ -33,7 +33,6 @@ function CreateWorkspaceForm({ onCancel }: CreateWorkspaceFormProps) {
     })
 
     const onSubmit = (values: z.infer<typeof createWorkSpaceSchema>) => {
-        console.log(values)
         const finalValues = {
             ...values,
             image: values.image instanceof File ? values.image : ""
