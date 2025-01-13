@@ -144,5 +144,61 @@ const app = new Hono()
         return c.json({ data: workspace })
 
     })
+    .delete("/:workspaceId", sessionMiddleware, async (c) => {
+        const databases = c.get("databases")
+        const user = c.get("user")
+        const { workspaceId } = c.req.param()
+
+        const isWorkspace = await databases.getDocument(
+            DATABASE_ID,
+            WORKSPACES_ID,
+            workspaceId
+        )
+
+        if (!isWorkspace) {
+            return c.json({ error: "Workspace not found" }, 404)
+        }
+        const member = await getMember({
+            databases,
+            workspaceId,
+            userId: user.$id
+        })
+
+        if (!member || (member.role !== MEMBER_ROLE.ADMIN)) {
+            return c.json({ error: "Unauthorized access" }, 401)
+        }
+
+        await databases.deleteDocument(DATABASE_ID, WORKSPACES_ID, workspaceId)
+
+        return c.json({ data: { $id: workspaceId }, message: "Workspace deleted successfully" })
+    })
+    .post("/:workspaceId/reset-invite-code", sessionMiddleware, async (c) => {
+        const databases = c.get("databases")
+        const user = c.get("user")
+        const { workspaceId } = c.req.param()
+
+        const isWorkspace = await databases.getDocument(
+            DATABASE_ID,
+            WORKSPACES_ID,
+            workspaceId
+        )
+
+        if (!isWorkspace) {
+            return c.json({ error: "Workspace not found" }, 404)
+        }
+        const member = await getMember({
+            databases,
+            workspaceId,
+            userId: user.$id
+        })
+
+        if (!member || (member.role !== MEMBER_ROLE.ADMIN)) {
+            return c.json({ error: "Unauthorized access" }, 401)
+        }
+
+        const workspace = await databases.updateDocument(DATABASE_ID, WORKSPACES_ID, workspaceId, { inviteCode: generateInviteCode(6) })
+
+        return c.json({ data: workspace, message: "Invite card reset successfully" })
+    })
 
 export default app
