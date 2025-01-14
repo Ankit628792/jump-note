@@ -5,8 +5,8 @@ import { createWorkSpaceSchema, updateWorkSpaceSchema } from "../schema";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { MEMBER_ROLE } from "@/features/members/types";
 import { generateInviteCode } from "@/lib/utils";
-import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 import { getMember } from "@/features/members/utils";
+import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 
 const createWorkSpaceMiddleware = zValidator("form", createWorkSpaceSchema)
 const updateWorkSpaceMiddleware = zValidator("form", updateWorkSpaceSchema)
