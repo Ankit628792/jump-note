@@ -1,12 +1,12 @@
 "use client"
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { GoCheckCircle, GoCheckCircleFill, GoHome, GoHomeFill } from 'react-icons/go'
 import { IoSettingsOutline, IoSettings } from 'react-icons/io5'
 import { HiMiniUsers, HiOutlineUsers } from 'react-icons/hi2'
 import { cn } from '@/lib/utils'
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id'
-import { usePathname } from 'next/navigation'
 
 const routes = [
     {

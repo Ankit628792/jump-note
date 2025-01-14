@@ -1,7 +1,7 @@
+import React, { useState } from 'react'
 import ResponsiveModal from '@/components/responsive-modal';
 import { Button, ButtonProps } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import React, { useState } from 'react'
 
 function useConfirm(title: string, message: string, variant: ButtonProps["variant"] = "primary"): [() => JSX.Element, () => Promise<unknown>] {
     const [promise, setPromise] = useState<{ resolve: (value: boolean) => void } | null>(null);
