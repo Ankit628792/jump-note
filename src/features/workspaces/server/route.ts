@@ -1,15 +1,17 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { ID, Query } from "node-appwrite";
-import { createWorkSpaceSchema, updateWorkSpaceSchema } from "../schema";
+import { createWorkSpaceSchema, joinWorkSpaceSchema, updateWorkSpaceSchema } from "../schema";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { MEMBER_ROLE } from "@/features/members/types";
 import { generateInviteCode } from "@/lib/utils";
 import { getMember } from "@/features/members/utils";
 import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
+import { Workspace } from "../types";
 
 const createWorkSpaceMiddleware = zValidator("form", createWorkSpaceSchema)
 const updateWorkSpaceMiddleware = zValidator("form", updateWorkSpaceSchema)
+const joinWorkspaceMiddleware = zValidator("json", joinWorkSpaceSchema)
 
 const app = new Hono()
     .get("/", sessionMiddleware, async (c) => {
@@ -199,6 +201,40 @@ const app = new Hono()
         const workspace = await databases.updateDocument(DATABASE_ID, WORKSPACES_ID, workspaceId, { inviteCode: generateInviteCode(6) })
 
         return c.json({ data: workspace, message: "Invite card reset successfully" })
+    })
+    .post("/:workspaceId/join", sessionMiddleware, joinWorkspaceMiddleware, async (c) => {
+        const { workspaceId } = c.req.param()
+        const { code } = c.req.valid("json");
+        const databases = c.get("databases")
+        const user = c.get("user")
+
+        const isWorkspace = await databases.getDocument<Workspace>(DATABASE_ID, WORKSPACES_ID, workspaceId)
+
+        if (!isWorkspace) {
+            return c.json({ error: "Workspace not found" }, 404)
+        }
+
+        if (code !== isWorkspace.inviteCode) {
+            return c.json({ error: "Invalid invite code" }, 400)
+        }
+
+        const member = await getMember({
+            databases,
+            workspaceId,
+            userId: user.$id
+        })
+
+        if (member) {
+            return c.json({ error: "Already a member of this workspace" }, 400)
+        }
+
+        await databases.createDocument(DATABASE_ID, MEMBERS_ID, ID.unique(), {
+            userId: user.$id,
+            workspaceId,
+            role: MEMBER_ROLE.MEMBER
+        })
+
+        return c.json({ data: isWorkspace, message: "Workspace joined successfully" })
     })
 
 export default app
