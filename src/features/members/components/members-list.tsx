@@ -1,5 +1,6 @@
 "use client"
 import React, { Fragment } from 'react'
+import { useRouter } from 'next/navigation';
 import { useWorkspaceId } from '../../workspaces/hooks/use-workspace-id'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,8 +15,6 @@ import { useDeleteMember } from '../api/use-delete-member';
 import { useUpdateMember } from '../api/use-update-member';
 import { MEMBER_ROLE } from '../types';
 import useConfirm from '@/hooks/use-confirm';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 
 function MembersList() {
     const router = useRouter()

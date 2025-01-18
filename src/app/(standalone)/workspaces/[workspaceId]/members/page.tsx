@@ -1,7 +1,7 @@
+import React from 'react'
+import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/features/auth/queries'
 import MembersList from '@/features/members/components/members-list';
-import { redirect } from 'next/navigation';
-import React from 'react'
 
 interface Props {
     params: {

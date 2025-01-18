@@ -1,8 +1,8 @@
+import React from 'react'
+import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/features/auth/queries'
 import JoinWorkspaceForm from '@/features/workspaces/components/join-workspace-form';
 import { getWorkspaceInfo } from '@/features/workspaces/queries';
-import { redirect } from 'next/navigation';
-import React from 'react'
 
 interface Props {
     params: {
