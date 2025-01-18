@@ -16,15 +16,15 @@ async function JoinWorkspacePage({ params }: Props) {
     if (!user) return redirect("/sign-in")
     const { workspaceId, inviteCode } = params;
 
-    const workspace = await getWorkspaceInfo({
+    const initialValues = await getWorkspaceInfo({
         workspaceId: workspaceId,
     })
 
-    if (!workspace) return redirect("/");
+    if (!initialValues) return redirect("/");
 
     return (
         <div className='w-full lg:max-w-xl'>
-            <JoinWorkspaceForm initialValues={workspace} />
+            <JoinWorkspaceForm initialValues={initialValues} />
         </div>
     )
 }

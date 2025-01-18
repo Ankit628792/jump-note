@@ -78,7 +78,7 @@ const app = new Hono()
             userId: user.$id,
         })
 
-        if (!member || (member.$id !== memberToDelete.$id && member.role !== MEMBER_ROLE.ADMIN)) {
+        if (!member || member.role !== MEMBER_ROLE.ADMIN || member.$id === memberToDelete.$id) {
             return c.json({ error: "Unauthorized access" }, 401)
         }
 
@@ -120,7 +120,7 @@ const app = new Hono()
             userId: user.$id,
         })
 
-        if (!member || (member.$id !== memberToUpdate.$id && member.role !== MEMBER_ROLE.ADMIN)) {
+        if (!member || member.role !== MEMBER_ROLE.ADMIN || member.$id === memberToUpdate.$id) {
             return c.json({ error: "Unauthorized access" }, 401)
         }
 
