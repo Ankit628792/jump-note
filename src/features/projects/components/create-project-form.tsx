@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { createProjectSchema } from '../schema';
 import { cn } from '@/lib/utils';
-import { useCreateProject } from '../api/use-create-projects';
+import { useCreateProject } from '../api/use-create-project';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
 
 

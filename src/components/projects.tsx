@@ -23,18 +23,20 @@ function Projects() {
                 <p className='text-xs uppercase text-neutral-500'>Projects</p>
                 <RiAddCircleFill onClick={open} className='size-5 text-neutral-500 cursor-pointer hover:opacity-75 transition' />
             </div>
-            {data?.documents?.map((project) => {
-                const href = `/workspaces/${workspaceId}/projects/${project.$id}`
-                const isActive = pathname === href
-                return (
-                    <Link href={href}>
-                        <div className={cn("flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500 group", isActive && "bg-white shadow-sm hover:opacity-100 text-primary")}>
-                            <ProjectAvatar image={project.imageUrl} name={project.name} />
-                            <span className='truncate'> {project.name}</span>
-                        </div>
-                    </Link>
-                )
-            })}
+            <div>
+                {data?.documents?.map((project) => {
+                    const href = `/workspaces/${workspaceId}/projects/${project.$id}`
+                    const isActive = pathname === href
+                    return (
+                        <Link href={href}>
+                            <div className={cn("flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500 group", isActive && "bg-white shadow-sm hover:opacity-100 text-primary")}>
+                                <ProjectAvatar image={project.imageUrl} name={project.name} />
+                                <span className='truncate'> {project.name}</span>
+                            </div>
+                        </Link>
+                    )
+                })}
+            </div>
         </div>
     )
 }

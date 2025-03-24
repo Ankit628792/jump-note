@@ -5,7 +5,8 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { z } from "zod";
-import { createProjectSchema } from "../schema";
+import { createProjectSchema, updateProjectSchema } from "../schema";
+import { Project } from "../types";
 
 const app = new Hono()
     .get("/",
@@ -96,5 +97,67 @@ const app = new Hono()
             return c.json({ data: workspace })
         }
     )
+    .patch("/:projectId", sessionMiddleware, zValidator("form", updateProjectSchema), async (c) => {
+        const databases = c.get("databases")
+        const user = c.get("user")
+        const storage = c.get("storage")
+        const { projectId } = c.req.param()
+
+        const { name, image } = c.req.valid("form");
+
+        const isProject = await databases.getDocument<Project>(
+            DATABASE_ID,
+            PROJECTS_ID,
+            projectId
+        )
+
+
+        if (!isProject) {
+            return c.json({ error: "Project not found" }, 404)
+        }
+        const member = await getMember({
+            databases,
+            workspaceId: isProject.workspaceId,
+            userId: user.$id
+        })
+
+        if (!member) {
+            return c.json({ error: "Unauthorized access" }, 403)
+        }
+
+
+        let imageUrl: string | undefined;
+
+        if (image instanceof File) {
+            const storage = c.get("storage")
+            const uploadedFile = await storage.createFile(
+                IMAGES_BUCKET_ID,
+                ID.unique(),
+                image
+            )
+            const arrayBuffer = await storage.getFilePreview(
+                IMAGES_BUCKET_ID,
+                uploadedFile.$id
+            );
+
+            imageUrl = `data:image/png;base64,${Buffer.from(arrayBuffer).toString("base64")}`
+        }
+        else {
+            imageUrl = image;
+        }
+
+        const project = await databases.updateDocument(
+            DATABASE_ID,
+            PROJECTS_ID,
+            projectId,
+            {
+                name,
+                imageUrl,
+            }
+        )
+
+        return c.json({ data: project })
+
+    })
 
 export default app;
