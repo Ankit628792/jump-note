@@ -159,5 +159,33 @@ const app = new Hono()
         return c.json({ data: project })
 
     })
+    .delete("/:projectId", sessionMiddleware, async (c) => {
+        const databases = c.get("databases")
+        const user = c.get("user")
+        const { projectId } = c.req.param()
+
+        const isProject = await databases.getDocument<Project>(
+            DATABASE_ID,
+            PROJECTS_ID,
+            projectId
+        )
+
+        if (!isProject) {
+            return c.json({ error: "Project not found" }, 404)
+        }
+        const member = await getMember({
+            databases,
+            workspaceId: isProject.workspaceId,
+            userId: user.$id
+        })
+
+        if (!member) {
+            return c.json({ error: "Unauthorized access" }, 401)
+        }
+
+        await databases.deleteDocument(DATABASE_ID, PROJECTS_ID, projectId)
+
+        return c.json({ data: { $id: projectId }, message: "Project deleted successfully" })
+    })
 
 export default app;
