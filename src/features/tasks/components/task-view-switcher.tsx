@@ -3,7 +3,7 @@ import DottedSeparator from '@/components/dotted-separator'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Loader, PlusIcon } from 'lucide-react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useCreateTaskModal } from '../hooks/use-create-task-modal'
 import { useGetTasks } from '../api/use-get-tasks'
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id'
@@ -12,6 +12,10 @@ import DataFilters from './data-filters'
 import { useTaskFilters } from '../hooks/use-task-filters'
 import { DataTable } from './data-table'
 import { columns } from './columns'
+import DataKanban from './data-kanban'
+import { TaskStatus } from '../types'
+import { useBulkUpdateTask } from '../api/use-bulk-update-task'
+import DataCalendar from './data-calendar'
 
 function TaskViewSwitcher() {
     const [{
@@ -29,6 +33,16 @@ function TaskViewSwitcher() {
     const workspaceId = useWorkspaceId();
     const { data: tasks, isLoading: isLoadingTasks } = useGetTasks({ workspaceId, assigneeId, status, search, projectId, dueDate });
 
+    const { mutate: bulkUpdate } = useBulkUpdateTask()
+
+    const onKanbanChange = useCallback((tasks: { $id: string; status: TaskStatus; position: number }[]) => {
+        bulkUpdate({
+            json: {
+                tasks
+            }
+        })
+    }, [])
+
     return (
         <Tabs defaultValue={view} onValueChange={setView} className='flex-1 w-full border rounded-lg'>
             <div className='h-full flex flex-col overflow-auto p-4'>
@@ -44,7 +58,7 @@ function TaskViewSwitcher() {
                             Calender
                         </TabsTrigger>
                     </TabsList>
-                    <Button onClick={open} size={"sm"} className='w-full lg:w-auto'>
+                    <Button onClick={() => open()} size={"sm"} className='w-full lg:w-auto'>
                         <PlusIcon className='size-4' />
                         <span>New</span>
                     </Button>
@@ -67,10 +81,10 @@ function TaskViewSwitcher() {
                                 <DataTable columns={columns} data={tasks?.documents ?? []} />
                             </TabsContent>
                             <TabsContent value='kanban' className='mt-0'>
-                                Data Kanban
+                                <DataKanban onChange={onKanbanChange} data={tasks?.documents ?? []} />
                             </TabsContent>
                             <TabsContent value='calendar' className='mt-0'>
-                                Data Calender
+                                <DataCalendar data={tasks?.documents ?? []} />
                             </TabsContent>
                         </>
                 }

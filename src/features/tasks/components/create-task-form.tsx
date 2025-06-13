@@ -1,6 +1,5 @@
 "use client"
-import React, { useRef } from 'react'
-import { useRouter } from 'next/navigation';
+import React from 'react'
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +8,6 @@ import DottedSeparator from '@/components/dotted-separator';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
 import { createTaskSchema } from '../schemas';
@@ -33,8 +31,6 @@ interface CreateTaskFormProps {
 
 function CreateTaskForm({ onCancel, projectOptions, memberOptions }: CreateTaskFormProps) {
     const workspaceId = useWorkspaceId();
-    const inputRef = useRef<HTMLInputElement>(null);
-    const router = useRouter();
     const { mutate, isPending } = useCreateTask();
     const form = useForm<z.infer<typeof createTaskSchema>>({
         resolver: zodResolver(createTaskSchema.omit({ workspaceId: true })),
