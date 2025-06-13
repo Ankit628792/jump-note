@@ -278,8 +278,8 @@ const app = new Hono()
 
             const assignee = await users.get(assignedUser.userId);
 
-            assignee["name"] = assignedUser.name;
-            assignee["email"] = assignedUser.email;
+            // assignee["name"] = assignedUser.name;
+            // assignee["email"] = assignedUser.email;
 
             return c.json({ data: { ...task, project, assignee } });
         }

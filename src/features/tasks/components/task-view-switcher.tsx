@@ -17,7 +17,11 @@ import { TaskStatus } from '../types'
 import { useBulkUpdateTask } from '../api/use-bulk-update-task'
 import DataCalendar from './data-calendar'
 
-function TaskViewSwitcher() {
+interface Props {
+    hideProjectFilter?: boolean
+}
+
+function TaskViewSwitcher({ hideProjectFilter }: Props) {
     const [{
         projectId,
         status,
@@ -65,7 +69,7 @@ function TaskViewSwitcher() {
                 </div>
 
                 <DottedSeparator className='my-4' />
-                <DataFilters />
+                <DataFilters hideProjectFilter={hideProjectFilter} />
                 <DottedSeparator className='my-4' />
 
                 {

@@ -20,7 +20,7 @@ function TaskActions({ id, projectId, children }: Props) {
     const { open } = useEditTaskModal()
     const [ConfirmDialog, confirm] = useConfirm(
         "Delete task",
-        "This action cannot be deleted",
+        "This action cannot be undone",
         "destructive"
     );
 
