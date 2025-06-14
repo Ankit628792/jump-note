@@ -6,7 +6,7 @@ import { createAdminClient } from "@/lib/appwrite";
 import { sessionMiddleware } from "@/lib/session-middleware";
 import { getMember } from "../utils";
 import { DATABASE_ID, MEMBERS_ID } from "@/config";
-import { MEMBER_ROLE } from "../types";
+import { Member, MEMBER_ROLE } from "../types";
 
 const memberMiddleware = zValidator("query", z.object({ workspaceId: z.string() }))
 const updateMemberMiddleware = zValidator("json", z.object({ role: z.nativeEnum(MEMBER_ROLE) }))
@@ -27,7 +27,7 @@ const app = new Hono()
             return c.json({ error: "Unauthorized access" }, 401)
         }
 
-        const members = await databases.listDocuments(
+        const members = await databases.listDocuments<Member>(
             DATABASE_ID,
             MEMBERS_ID,
             [
