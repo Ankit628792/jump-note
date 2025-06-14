@@ -1,6 +1,5 @@
 "use client"
-import React, { useRef } from 'react'
-import { useRouter } from 'next/navigation';
+import React from 'react'
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,7 +9,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';
 import { createTaskSchema } from '../schemas';
 import DatePicker from '@/components/date-picker';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -32,9 +30,6 @@ interface EditTaskFormProps {
 }
 
 function EditTaskForm({ onCancel, projectOptions, memberOptions, initialValues }: EditTaskFormProps) {
-    const workspaceId = useWorkspaceId();
-    const inputRef = useRef<HTMLInputElement>(null);
-    const router = useRouter();
     const { mutate, isPending } = useUpdateTask();
     const form = useForm<z.infer<typeof createTaskSchema>>({
         resolver: zodResolver(createTaskSchema.omit({ workspaceId: true, description: true })),
@@ -47,8 +42,7 @@ function EditTaskForm({ onCancel, projectOptions, memberOptions, initialValues }
     const onSubmit = (values: z.infer<typeof createTaskSchema>) => {
 
         mutate({ json: values, param: { taskId: initialValues.$id } }, {
-            onSuccess: ({ data }) => {
-                form.reset()
+            onSuccess: () => {
                 onCancel?.();
             }
         })

@@ -5,7 +5,6 @@ import { PencilIcon, XIcon } from 'lucide-react'
 import DottedSeparator from '@/components/dotted-separator'
 import { useUpdateTask } from '../api/use-update-task'
 import { Textarea } from '@/components/ui/textarea'
-import { ta } from 'date-fns/locale'
 
 interface Props {
     task: Task
@@ -28,6 +27,8 @@ function TaskDescription({ task }: Props) {
             param: {
                 taskId: task.$id
             }
+        }, {
+            onSuccess: () => setIsEditing(false)
         })
     }
     return (

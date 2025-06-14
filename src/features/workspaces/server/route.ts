@@ -8,6 +8,7 @@ import { generateInviteCode } from "@/lib/utils";
 import { getMember } from "@/features/members/utils";
 import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, WORKSPACES_ID } from "@/config";
 import { Workspace } from "../types";
+import { id } from "date-fns/locale";
 
 const createWorkSpaceMiddleware = zValidator("form", createWorkSpaceSchema)
 const updateWorkSpaceMiddleware = zValidator("form", updateWorkSpaceSchema)
@@ -236,5 +237,33 @@ const app = new Hono()
 
         return c.json({ data: isWorkspace, message: "Workspace joined successfully" })
     })
+    .get("/:workspaceId", sessionMiddleware, async (c) => {
+        const databases = c.get("databases")
+        const user = c.get("user")
+        const { workspaceId } = c.req.param()
+
+        const workspace = await databases.getDocument<Workspace>(
+            DATABASE_ID,
+            WORKSPACES_ID,
+            workspaceId
+        )
+
+        if (!workspace) {
+            return c.json({ error: "Workspace not found" }, 404)
+        }
+
+        const member = await getMember({
+            databases,
+            workspaceId,
+            userId: user.$id
+        })
+
+        if (!member) {
+            return c.json({ error: "Unauthorized access" }, 401)
+        }
+
+        return c.json({ data: workspace })
+    }
+    )
 
 export default app
