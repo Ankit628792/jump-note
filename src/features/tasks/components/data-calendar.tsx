@@ -81,7 +81,7 @@ function DataCalendar({ data }: Props) {
     }
 
     return (
-        // @ts-expect-error
+        // @ts-expect-error // There is some type issue with library
         <ReactBigCalendar
             localizer={localizer}
             date={value}

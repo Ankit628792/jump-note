@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { useLogin } from '../api/use-login'
+import { signUpWithGithub } from '@/lib/oauth'
 
 
 function SignInCard() {
@@ -97,6 +98,7 @@ function SignInCard() {
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'
+                    onClick={() => signUpWithGithub()}
                 >
                     <FaGithub className='mr-2 size-5' />
                     Login with Github
@@ -106,7 +108,7 @@ function SignInCard() {
                 <DottedSeparator />
             </div>
             <CardContent className='p-7 text-center'>
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href='/sign-up' className=''>
                     <span className='text-blue-700'>Sign Up</span>
                 </Link>

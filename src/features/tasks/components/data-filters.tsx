@@ -35,7 +35,6 @@ function DataFilters({ hideProjectFilter }: Props) {
         status,
         assigneeId,
         dueDate,
-        search,
     }, setFilters] = useTaskFilters();
 
     const onStatusChange = (value: string) => {

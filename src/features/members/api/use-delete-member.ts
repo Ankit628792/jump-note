@@ -21,7 +21,7 @@ export const useDeleteMember = () => {
             toast.success("Member removed successfully")
             queryClient.invalidateQueries({ queryKey: ["members"] });
         },
-        onError: (error) => {
+        onError: () => {
             toast.error("Failed to remove member")
         },
     })

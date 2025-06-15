@@ -7,7 +7,7 @@ import { ID, Query } from "node-appwrite";
 import { z } from "zod";
 import { createProjectSchema, updateProjectSchema } from "../schema";
 import { Project } from "../types";
-import { endOfMonth, startOfMinute, startOfMonth, subMonths } from "date-fns"
+import { endOfMonth, startOfMonth, subMonths } from "date-fns"
 import { TaskStatus } from "@/features/tasks/types";
 
 const app = new Hono()
@@ -102,7 +102,6 @@ const app = new Hono()
     .patch("/:projectId", sessionMiddleware, zValidator("form", updateProjectSchema), async (c) => {
         const databases = c.get("databases")
         const user = c.get("user")
-        const storage = c.get("storage")
         const { projectId } = c.req.param()
 
         const { name, image } = c.req.valid("form");

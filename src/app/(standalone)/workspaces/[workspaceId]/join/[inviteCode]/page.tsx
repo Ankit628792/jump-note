@@ -14,7 +14,7 @@ interface Props {
 async function JoinWorkspacePage({ params }: Props) {
     const user = await getCurrentUser();
     if (!user) return redirect("/sign-in")
-    const { workspaceId, inviteCode } = params;
+    const { workspaceId } = params;
 
     const initialValues = await getWorkspaceInfo({
         workspaceId: workspaceId,

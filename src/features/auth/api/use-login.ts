@@ -24,7 +24,7 @@ export const useLogin = () => {
             queryClient.invalidateQueries({ queryKey: ["session"] });
             router.replace("/")
         },
-        onError: (error) => {
+        onError: () => {
             toast.error("Failed to login")
         },
     })

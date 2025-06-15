@@ -8,7 +8,6 @@ import { generateInviteCode } from "@/lib/utils";
 import { getMember } from "@/features/members/utils";
 import { DATABASE_ID, IMAGES_BUCKET_ID, MEMBERS_ID, TASKS_ID, WORKSPACES_ID } from "@/config";
 import { Workspace } from "../types";
-import { id } from "date-fns/locale";
 import { endOfMonth, startOfMonth, subMonths } from "date-fns";
 import { TaskStatus } from "@/features/tasks/types";
 
@@ -90,7 +89,6 @@ const app = new Hono()
     .patch("/:workspaceId", sessionMiddleware, updateWorkSpaceMiddleware, async (c) => {
         const databases = c.get("databases")
         const user = c.get("user")
-        const storage = c.get("storage")
         const { workspaceId } = c.req.param()
 
         const { name, image } = c.req.valid("form");

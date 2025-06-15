@@ -30,7 +30,7 @@ export const getWorkspaces = async () => {
 
         return workSpaces;
 
-    } catch (error) {
+    } catch {
         return { documents: [], total: 0 };
     }
 }
@@ -38,7 +38,7 @@ export const getWorkspaces = async () => {
 
 export const getWorkspaceInfo = async ({ workspaceId }: { workspaceId: string }) => {
     try {
-        const { account, databases } = await createSessionClient();
+        const { databases } = await createSessionClient();
 
         const workSpace = await databases.getDocument<Workspace>(
             DATABASE_ID,
@@ -50,7 +50,7 @@ export const getWorkspaceInfo = async ({ workspaceId }: { workspaceId: string })
             name: workSpace.name
         };
 
-    } catch (error) {
+    } catch {
         return null;
     }
 }

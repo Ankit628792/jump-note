@@ -5,7 +5,7 @@ import { useEditTaskModal } from '../hooks/use-edit-task-modal'
 import { EditTaskFormWrapper } from './edit-task-form-wrapper'
 
 function EditTaskModal() {
-    const { taskId, setTaskId, close } = useEditTaskModal()
+    const { taskId, close } = useEditTaskModal()
     return (
         <ResponsiveModal open={!!taskId} onOpenChange={close}>
             {

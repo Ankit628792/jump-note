@@ -11,6 +11,7 @@ const app = new Hono().basePath("/api")
         return c.json({ ok: true, message: "Hello from Hono API!" });
     })
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const routes = app
     .route("/auth", auth)
     .route("/workspaces", workspaces)

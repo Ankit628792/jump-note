@@ -24,7 +24,7 @@ export const useLogout = () => {
             queryClient.invalidateQueries({ queryKey: ["workspaces"] });
             router.replace("/sign-in")
         },
-        onError: (error) => {
+        onError: () => {
             toast.error("Failed to logout")
         },
     })

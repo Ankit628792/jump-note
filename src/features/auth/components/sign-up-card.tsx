@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { registerSchema } from '@/features/schema'
 import { useRegister } from '../api/use-register'
+import { signUpWithGithub } from '@/lib/oauth'
 
 
 function SignUpCard() {
@@ -116,6 +117,8 @@ function SignUpCard() {
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'
+                    onClick={() => signUpWithGithub()}
+
                 >
                     <FaGithub className='mr-2 size-5' />
                     Login with Github

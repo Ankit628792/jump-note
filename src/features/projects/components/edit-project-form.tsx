@@ -2,7 +2,7 @@
 import React, { ChangeEvent, useRef } from 'react'
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeftIcon, CopyIcon, ImageIcon } from 'lucide-react';
+import { ArrowLeftIcon, ImageIcon } from 'lucide-react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,7 +17,6 @@ import { cn } from '@/lib/utils';
 import { Project } from '../types';
 import { useUpdateProject } from '../api/use-update-project';
 import useConfirm from '@/hooks/use-confirm';
-import { toast } from 'sonner';
 import { useDeleteProject } from '../api/use-delete-project';
 
 

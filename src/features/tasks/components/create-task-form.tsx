@@ -42,7 +42,7 @@ function CreateTaskForm({ onCancel, projectOptions, memberOptions }: CreateTaskF
     const onSubmit = (values: z.infer<typeof createTaskSchema>) => {
 
         mutate({ json: { ...values, workspaceId } }, {
-            onSuccess: ({ data }) => {
+            onSuccess: () => {
                 form.reset()
                 onCancel?.();
             }

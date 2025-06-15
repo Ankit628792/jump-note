@@ -17,7 +17,6 @@ function DottedSeparator({
     dotSize = "2px",
     gapSize = "6px",
     direction = "horizontal",
-    ...rest
 }: Props) {
     const isHorizontal = direction === "horizontal";
     return (

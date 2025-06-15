@@ -28,7 +28,7 @@ function Projects() {
                     const href = `/workspaces/${workspaceId}/projects/${project.$id}`
                     const isActive = pathname === href
                     return (
-                        <Link href={href}>
+                        <Link key={project.$id} href={href}>
                             <div className={cn("flex items-center gap-2.5 p-2.5 rounded-md font-medium hover:text-primary transition text-neutral-500 group", isActive && "bg-white shadow-sm hover:opacity-100 text-primary")}>
                                 <ProjectAvatar image={project.imageUrl} name={project.name} />
                                 <span className='truncate'> {project.name}</span>

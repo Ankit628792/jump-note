@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 
-function layout({ children }: {
+function Layout({ children }: {
     children: React.ReactNode,
 }) {
     const pathname = usePathname();
@@ -28,4 +28,4 @@ function layout({ children }: {
     )
 }
 
-export default layout
+export default Layout

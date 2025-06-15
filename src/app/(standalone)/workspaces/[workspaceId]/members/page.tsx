@@ -3,12 +3,7 @@ import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/features/auth/queries'
 import MembersList from '@/features/members/components/members-list';
 
-interface Props {
-    params: {
-        workspaceId: string
-    }
-}
-async function WorkspaceMembers({ params }: Props) {
+async function WorkspaceMembers() {
     const user = await getCurrentUser();
     if (!user) return redirect("/sign-in")
     return (

@@ -28,7 +28,7 @@ function TaskViewSwitcher({ hideProjectFilter }: Props) {
         assigneeId,
         dueDate,
         search,
-    }, setFilters] = useTaskFilters();
+    }] = useTaskFilters();
 
     const [view, setView] = useQueryState("task-view", {
         defaultValue: "table"
@@ -45,7 +45,7 @@ function TaskViewSwitcher({ hideProjectFilter }: Props) {
                 tasks
             }
         })
-    }, [])
+    }, [bulkUpdate])
 
     return (
         <Tabs defaultValue={view} onValueChange={setView} className='flex-1 w-full border rounded-lg'>

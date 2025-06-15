@@ -30,8 +30,6 @@ function WorkspaceClient() {
     const { data: projects, isLoading: isLoadingProjects } = useGetProjects({ workspaceId });
     const { data: members, isLoading: isLoadingMembers } = useGetMembers({ workspaceId });
 
-    const { open: createProject } = useCreateProjectModal();
-
     if (isLoadingAnalytics || isLoadingTasks || isLoadingProjects || isLoadingMembers) {
         return <PageLoader />
     }
