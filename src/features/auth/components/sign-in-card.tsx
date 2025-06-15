@@ -85,7 +85,7 @@ function SignInCard() {
             </div>
             <CardContent className='p-7 flex flex-col gap-y-4'>
                 <Button
-                    disabled={false}
+                    disabled={true}
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'
@@ -94,7 +94,7 @@ function SignInCard() {
                     Login with google
                 </Button>
                 <Button
-                    disabled={false}
+                    disabled={true}
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'

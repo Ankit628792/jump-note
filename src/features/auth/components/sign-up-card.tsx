@@ -4,9 +4,9 @@ import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 import Link from 'next/link'
 import { z } from 'zod';
-import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import DottedSeparator from '@/components/dotted-separator'
+import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -104,7 +104,7 @@ function SignUpCard() {
             </div>
             <CardContent className='p-7 flex flex-col gap-y-4'>
                 <Button
-                    disabled={false}
+                    disabled={true}
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'
@@ -113,7 +113,7 @@ function SignUpCard() {
                     Login with google
                 </Button>
                 <Button
-                    disabled={false}
+                    disabled={true}
                     variant={"secondary"}
                     size={"lg"}
                     className='w-full'
